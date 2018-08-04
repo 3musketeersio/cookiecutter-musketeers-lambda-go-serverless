@@ -1,0 +1,6 @@
+{
+  "git_host": "github.com",
+  "git_username": "flemay",
+  "git_repo_name": "musketeers-lambda-go-sls",
+  "app_go_package_path": "{{ cookiecutter.git_host }}/{{ cookiecutter.git_username }}/{{ cookiecutter.git_repo_name }}"
+}
