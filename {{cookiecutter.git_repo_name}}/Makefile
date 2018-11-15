@@ -92,11 +92,11 @@ shellServerless:
 ###################
 
 # if there is no vendor directory then unzip from golang_vendor.zip artifact
-$(GOLANG_DEPS_DIR): | $(GOLANG_DEPS_ARTIFACT)
+$(GOLANG_DEPS_DIR):
 	$(COMPOSE_RUN_SERVERLESS) make _unzipGoDeps
 
 # if bin directory is not present, it unzips all the zip binaries into bin directory
-$(BIN_DIR): | $(BIN_PACKAGES_ARTIFACT)
+$(BIN_DIR):
 	$(COMPOSE_RUN_SERVERLESS) make _unzipBinPackagesArtifact
 
 # _zipGoDeps zips the go dependencies so they can be passed along with a single zip file
@@ -105,7 +105,7 @@ _zipGoDeps:
 .PHONY: _zipGoDeps
 
 # _unzipGoDeps unzips the go dependencies zip file
-_unzipGoDeps:
+_unzipGoDeps: $(GOLANG_DEPS_ARTIFACT)
 	unzip -qo -d . $(GOLANG_DEPS_ARTIFACT)
 .PHONY: _unzipGoDeps
 
@@ -115,7 +115,7 @@ _zipBinPackagesArtifact:
 .PHONY: _zipBinPackagesArtifact
 
 # _unzipBinPackagesArtifact unzips the artifact that contains the binary packages
-_unzipBinPackagesArtifact:
+_unzipBinPackagesArtifact: $(BIN_PACKAGES_ARTIFACT)
 	unzip -qo -d . $(BIN_PACKAGES_ARTIFACT)
 .PHONY: _unzipBinPackagesArtifact
 
